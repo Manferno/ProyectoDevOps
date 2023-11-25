@@ -5,7 +5,7 @@ pipeline {
         stage('Clonar Repositorio') {
             steps {
                 // Clonar el repositorio de tu aplicación desde el control de versiones
-                git clone 'https://github.com/Manferno/ProyectoDevOps.git'
+                git  'https://github.com/Manferno/ProyectoDevOps.git'
             }
         }
         
