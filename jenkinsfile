@@ -9,35 +9,32 @@ pipeline {
 
             }
         }
-        
-        stage('Instalar Dependencias') {
+        stage('Build Production Application') {
             steps {
-                // Instalar las dependencias de Node.js y de la aplicación React
-                sh 'npm install '
+                script {
+                    // Ejecutar npm run build
+                    sh 'npm run build'
+                }
             }
         }
-        
-        stage('Construir la Aplicación') {
-            steps {
-                // Construir la aplicación React
-                sh 'npm run build'
-            }
-        }
-    
 
-     stage('Instalar y Desplegar con Serve') {
-    steps {
-        script {
-            // Instalar serve globalmente y servir la aplicación construida
-            sh 'npm install -g serve'
-            sh 'serve -s build -l 5000 &'
-            waitUntil {
-                def response = sh(script: 'curl -Is http://localhost:5000 | head -n 1', returnStatus: true)
-                return response == 0
+        stage('Install Serve Component') {
+            steps {
+                script {
+                    // Instalar globalmente serve
+                    sh 'npm install -g serve'
+                }
             }
         }
-    }
-}
+
+        stage('Start Production Application') {
+            steps {
+                script {
+                    // Ejecutar serve -s build
+                    sh 'serve -s build'
+                }
+            }
+        }
 
         
     {
