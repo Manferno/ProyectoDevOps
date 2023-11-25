@@ -23,13 +23,7 @@ pipeline {
                 sh 'npm run build'
             }
         }
-        stage('Instalar Serve') {
-            steps {
-                // Instalar y desplegar serve globalmente
-                sh 'npm install -g serve'
-               
-            }
-        }
+    
 
      stage('Instalar y Desplegar con Serve') {
     steps {
