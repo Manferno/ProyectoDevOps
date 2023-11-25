@@ -33,10 +33,12 @@ pipeline {
 
          stage('Deploy Serve') {
             steps {
-                // Instalar y desplegar serve globalmente
+                //  desplegar serve globalmente
                 
-                sh 'serve -s build'
-                sh 'npm fund'
+                sh 'serve -s build -l 5000 &'
+            waitUntil {
+                def response = sh(script: 'curl -Is http://localhost:5000 | head -n 1', returnStatus: true)
+                return response == 0
             }
         }
 
