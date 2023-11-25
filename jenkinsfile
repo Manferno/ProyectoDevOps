@@ -9,43 +9,46 @@ pipeline {
 
             }
         }
-        stage('Build Production Application') {
+        
+        stage('Instalar Dependencias') {
             steps {
-                script {
-                    // Ejecutar npm run build
-                    sh 'npm run build'
-                }
+                // Instalar las dependencias de Node.js y de la aplicación React
+                sh 'npm install '
             }
         }
+        
+        stage('Construir la Aplicación') {
+            steps {
+                // Construir la aplicación React
+                sh 'npm run build'
+            }
+        }
+    
 
-        stage('Install Serve Component') {
-            steps {
-                script {
-                    // Instalar globalmente serve
-                    sh 'npm install -g serve'
-                }
+     stage('Instalar y Desplegar con Serve') {
+    steps {
+        script {
+            // Instalar serve globalmente y servir la aplicación construida
+            sh 'npm install -g serve'
+            sh 'serve -s build -l 5000 &'
+            waitUntil {
+                def response = sh(script: 'curl -Is http://localhost:5000 | head -n 1', returnStatus: true)
+                return response == 0
             }
         }
-
-        stage('Start Production Application') {
-            steps {
-                script {
-                    // Ejecutar serve -s build
-                    sh 'serve -s build'
-                }
-            }
-        }
+    }
+}
 
         
     {
     post {
         success {
-            // Acciones a realizar si el despliegue es exitoso
-            echo 'Despliegue exitoso'
+            // Success
+            echo 'Success'
         }
         failure {
-            // Acciones a realizar si el despliegue falla
-            echo 'Error en el despliegue'
+           //FAIL
+            echo 'Fail'
         }
     }
 }
