@@ -27,7 +27,7 @@ pipeline {
             steps {
                 // Instalar y desplegar serve globalmente
                 sh 'npm install -g serve'
-                sh 'serve -s build'
+              //  sh 'serve -s build'
             }
         }
 
