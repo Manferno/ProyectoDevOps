@@ -36,6 +36,7 @@ pipeline {
                 // Instalar y desplegar serve globalmente
                 
                 sh 'serve -s build'
+                sh 'npm fund'
             }
         }
 
