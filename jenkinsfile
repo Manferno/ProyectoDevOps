@@ -13,7 +13,7 @@ pipeline {
         stage('Instalar Dependencias') {
             steps {
                 // Instalar las dependencias de Node.js y de la aplicación React
-                sh 'npm run install'
+                sh 'npm run '
             }
         }
         
@@ -24,11 +24,7 @@ pipeline {
             }
         }
 
-          stage('Lanzar aplicación') {
-            steps {
-                // Construir la aplicación React
-                sh 'npm start'
-            }
+      
         }
     }
     
