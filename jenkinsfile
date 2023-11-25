@@ -14,7 +14,7 @@ pipeline {
         stage('Construir la Aplicación') {
             steps {
                 // Construir la aplicación React
-                sh 'npm build'
+                sh 'npm run build'
             }
         }
     }
