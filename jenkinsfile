@@ -27,6 +27,14 @@ pipeline {
             steps {
                 // Instalar y desplegar serve globalmente
                 sh 'npm install -g serve'
+               
+            }
+        }
+
+         stage('Deploy Serve') {
+            steps {
+                // Instalar y desplegar serve globalmente
+                
                 sh 'serve -s build'
             }
         }
