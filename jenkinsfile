@@ -31,16 +31,19 @@ pipeline {
             }
         }
 
-         stage('Deploy Serve') {
-            steps {
-                //  desplegar serve globalmente
-                
-                sh 'serve -s build -l 5000 &'
+     stage('Instalar y Desplegar con Serve') {
+    steps {
+        script {
+            // Instalar serve globalmente y servir la aplicación construida
+            sh 'npm install -g serve'
+            sh 'serve -s build -l 5000 &'
             waitUntil {
                 def response = sh(script: 'curl -Is http://localhost:5000 | head -n 1', returnStatus: true)
                 return response == 0
             }
-        }}
+        }
+    }
+}
 
         
     {
